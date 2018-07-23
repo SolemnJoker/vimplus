@@ -45,7 +45,13 @@ function compile_vim_on_ubuntu()
     sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
         libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
         libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.1 lua5.1-dev
+    sudo apt-get remove -y vim vim-runtime gvim
+    sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
 
+    sudo rm -rf ~/vim
+    sudo rm -rf /usr/share/vim/vim74
+    sudo rm -rf /usr/share/vim/vim80
+    sudo rm -rf /usr/share/vim/vim81
     git clone https://github.com/vim/vim.git ~/vim
     cd ~/vim
     ./configure --with-features=huge \
@@ -58,42 +64,7 @@ function compile_vim_on_ubuntu()
         --enable-gui=gtk2 \
         --enable-cscope \
         --prefix=/usr
-    make
-    sudo make install
-    cd -
-}
-
-# 在centos上源代码安装vim
-function compile_vim_on_centos()
-{
-    sudo rm -rf /usr/bin/vi
-    sudo rm -rf /usr/bin/vim*
-    sudo rm -rf /usr/local/bin/vim*
-    sudo rm -rf /usr/share/vim/vim*
-    sudo rm -rf /usr/local/share/vim/vim*
-    rm -rf ~/vim
-
-    sudo yum install -y ruby ruby-devel lua lua-devel luajit \
-        luajit-devel ctags git python python-devel \
-        python34 python34-devel tcl-devel \
-        perl perl-devel perl-ExtUtils-ParseXS \
-        perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
-        perl-ExtUtils-Embed libX11-devel ncurses-devel
-    
-    git clone https://github.com/vim/vim.git ~/vim
-    cd ~/vim
-    ./configure --with-features=huge \
-        --enable-multibyte \
-        --with-tlib=tinfo \
-        --enable-rubyinterp=yes \
-        --enable-pythoninterp=yes \
-        --with-python-config-dir=/usr/local/python-2.7.14/lib/python2.7/config \
-        --enable-perlinterp=yes \
-        --enable-luainterp=yes \
-        --enable-gui=gtk2 \
-        --enable-cscope \
-        --prefix=/usr
-    make
+    make VIMRUNTIMEDIR=/usr/share/vim/vim81
     sudo make install
     cd -
 }
@@ -107,8 +78,7 @@ function install_prepare_software_on_mac()
 # 安装centos发行版必要软件
 function install_prepare_software_on_centos()
 {
-    sudo yum install -y ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel curl fontconfig ack
-    compile_vim_on_centos
+    sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel curl ack
 }
 
 # 安装ubuntu发行版必要软件
@@ -120,7 +90,7 @@ function install_prepare_software_on_ubuntu()
 
     if [ ${ubuntu_1604} == 1 ]; then
         echo "ubuntu 16.04 LTS"
-        compile_vim_on_ubuntu
+        compile_vim
     else
         echo "not ubuntu 16.04 LTS"
         sudo apt-get install -y vim
@@ -216,6 +186,18 @@ function print_logo()
     printf "${normal}"
 }
 
+# 改变一些文件、文件夹属组和用户关系
+function chown_dir()
+{
+    who_is=$(who)
+    current_user=${who_is%% *}
+    sudo chown -R ${current_user}:${current_user} ~/.vim
+    sudo chown -R ${current_user}:${current_user} ~/.fonts
+    sudo chown -R ${current_user}:${current_user} ~/.cache
+    sudo chown ${current_user}:${current_user} ~/.vimrc.local
+    sudo chown ${current_user}:${current_user} ~/.viminfo
+}
+
 # 在mac平台安装vimplus
 function install_vimplus_on_mac()
 {
@@ -235,6 +217,7 @@ function begin_install_vimplus()
     download_vim_plug
     install_vim_plugin
     compile_ycm_on_linux
+    chown_dir
     print_logo
 }
 

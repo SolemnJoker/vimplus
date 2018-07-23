@@ -145,9 +145,13 @@ Plug 'kana/vim-textobj-function'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'Shougo/echodoc.vim'
 Plug 'terryma/vim-smooth-scroll'
+Plug 'terryma/vim-expand-region'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/github-complete.vim'
+Plug 'yianwillis/vimcdoc'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'nsf/gocode'
 
 call plug#end()            
 
@@ -303,6 +307,7 @@ imap <silent> <F8> <Plug>StopMarkdownPreview
 let g:EasyMotion_smartcase = 1
 map <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
+
 
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
