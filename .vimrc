@@ -129,6 +129,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/github-complete.vim'
 Plug 'yianwillis/vimcdoc'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'nsf/gocode'
 
 call plug#end()            
 
@@ -302,7 +304,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 " LeaderF
-nnoremap <leader>f :LeaderfFile ~<cr>
+nnoremap <leader>F :LeaderfFile ~<cr>
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
             \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
@@ -310,7 +312,7 @@ let g:Lf_WildIgnore = {
 let g:Lf_UseCache = 0
 
 " ack
-nnoremap <leader>F :Ack!<space>
+nnoremap <leader>f :Ack!<space>
 
 " echodoc.vim
 let g:echodoc_enable_at_startup = 1

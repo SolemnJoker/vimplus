@@ -150,7 +150,7 @@ function compile_ycm_on_mac()
 function compile_ycm_on_linux()
 {
     cd ~/.vim/plugged/YouCompleteMe
-    sudo ./install.py --clang-completer
+    sudo ./install.py --clang-completer --go-completer
 }
 
 # 打印logo
