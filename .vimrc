@@ -327,6 +327,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " LeaderF
 nnoremap <leader>f :LeaderfFile .<cr>
+nnoremap <leader>m :LeaderfFunction<cr>
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
             \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
@@ -349,6 +350,9 @@ nnoremap <leader>= :Tab /=<cr>
 nnoremap <leader>g :GV<cr>
 nnoremap <leader>G :GV!<cr>
 nnoremap <leader>gg :GV?<cr>
+
+"上一个buffer
+nnoremap <leader>3 :b#<cr>
 
 " 个性化
 if filereadable(expand($HOME . '/.vimrc.local'))
