@@ -126,6 +126,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -144,7 +145,7 @@ Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'Shougo/echodoc.vim'
-Plug 'terryma/vim-smooth-scroll'
+
 Plug 'terryma/vim-expand-region'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/github-complete.vim'
@@ -309,6 +310,7 @@ map <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
 
 
+
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -324,7 +326,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 " LeaderF
-nnoremap <leader>f :LeaderfFile ~<cr>
+nnoremap <leader>f :LeaderfFile .<cr>
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
             \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
@@ -341,11 +343,7 @@ let g:echodoc_enable_at_startup = 1
 nnoremap <leader>l :Tab /\|<cr>
 nnoremap <leader>= :Tab /=<cr>
 
-" vim-smooth-scroll
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
 
 " gv
 nnoremap <leader>g :GV<cr>
