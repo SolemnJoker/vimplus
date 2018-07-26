@@ -167,12 +167,12 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 " 主题
 set background=dark
 let g:onedark_termcolors=256
-colorscheme onedark
+colorscheme monokai
 
 " airline
 "ravenpower
 " hybridline
-let g:airline_theme="hybridline"
+let g:airline_theme="dark"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
