@@ -50,7 +50,7 @@ set smarttab             " 在行和段开始处使用制表符
 set nowrap               " 禁止折行
 set backspace=2          " 使用回车键正常处理indent,eol,start等
 set sidescroll=10        " 设置向右滚动字符数
-set nofoldenable         " 禁用折叠代码
+"set nofoldenable         " 禁用折叠代码
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码补全
@@ -116,6 +116,7 @@ Plug 'tpope/vim-endwise'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/gv.vim'
@@ -132,8 +133,24 @@ Plug 'rhysd/github-complete.vim'
 Plug 'yianwillis/vimcdoc'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'nsf/gocode'
+Plug 'tenfyzhong/CompleteParameter.vim'
 
 call plug#end()            
+
+imap jk <esc>
+nnoremap <CR> G
+nnoremap <BS> gg
+"跳转书签
+nnoremap <space>m :'
+nnoremap <space>dm :delm 
+
+"CompleteParameter
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter))
+
 
 " load vim default plugin
 runtime macros/matchit.vim
@@ -167,7 +184,7 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 " 主题
 set background=dark
 let g:onedark_termcolors=256
-colorscheme monokai
+colorscheme gruvbox
 
 " airline
 "ravenpower
@@ -176,7 +193,7 @@ let g:airline_theme="dark"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+     let g:airline_symbols = {}
 endif
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
