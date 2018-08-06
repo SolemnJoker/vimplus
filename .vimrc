@@ -158,12 +158,20 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 
 call plug#end()            
 
-imap jk <esc>
-nnoremap <CR> G
-nnoremap <BS> gg
+imap jk <esc> 
+imap <F9> (
+imap <F10> )
+imap <F11> _
+imap -- _
+imap [[ {
+imap ]] }
+imap ;; :
+imap <F12> +
 "跳转书签
 nnoremap <space>m :'
+nnoremap <space>3 :''<cr>
 nnoremap <space>dm :delm 
+nnoremap <space><space> :
 
 "CompleteParameter
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
@@ -230,14 +238,14 @@ nnoremap <leader><leader>fp :FormatFunParam<cr>
 nnoremap <leader><leader>if :FormatIf<cr>
 
 " change-colorscheme
-nnoremap <silent> <F9> :PreviousColorScheme<cr>
-inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
-nnoremap <silent> <F10> :NextColorScheme<cr>
-inoremap <silent> <F10> <esc> :NextColorScheme<cr>
-nnoremap <silent> <F11> :RandomColorScheme<cr>
-inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
-nnoremap <silent> <F12> :ShowColorScheme<cr>
-inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
+" nnoremap <silent> <F9> :PreviousColorScheme<cr>
+" inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
+" nnoremap <silent> <F10> :NextColorScheme<cr>
+" inoremap <silent> <F10> <esc> :NextColorScheme<cr>
+" nnoremap <silent> <F11> :RandomColorScheme<cr>
+" inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
+" nnoremap <silent> <F12> :ShowColorScheme<cr>
+" inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 
 " prepare-code
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
