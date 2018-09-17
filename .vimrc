@@ -39,6 +39,7 @@ set cursorline           " 高亮显示当前行
 set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
+set relativenumber       " 设置相对行号
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -275,13 +276,11 @@ let g:NERDTreeDirArrowCollapsible='▼'
 
 " YCM
 let g:ycm_confirm_extra_conf = 0 
-let g:ycm_error_symbol = '✗'
-let g:ycm_warning_symbol = '✗'
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
 let g:ycm_seed_identifiers_with_syntax = 1 
 let g:ycm_complete_in_comments = 1 
 let g:ycm_complete_in_strings = 1 
-let g:ycm_server_python_interpreter = '/usr/bin/python'
-let g:ycm_python_binary_path = 'python'
 nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 " nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
@@ -336,7 +335,9 @@ let g:EasyMotion_smartcase = 1
 map <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
 
-
+" pydiction
+let g:pydiction_location='~/.vim/plugged/pydiction/complete-dict'
+let g:pydiction_menu_height=10
 
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
@@ -371,7 +372,11 @@ let g:echodoc_enable_at_startup = 1
 nnoremap <leader>l :Tab /\|<cr>
 nnoremap <leader>= :Tab /=<cr>
 
-
+" vim-smooth-scroll
+"noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+"noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+"noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+"noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " gv
 nnoremap <leader>g :GV<cr>

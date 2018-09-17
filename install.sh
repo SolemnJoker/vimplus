@@ -58,7 +58,7 @@ function compile_vim_on_ubuntu()
         --enable-multibyte \
         --enable-rubyinterp \
         --enable-pythoninterp \
-        --with-python-config-dir=/usr/lib/python2.7/config \
+        --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
         --enable-perlinterp \
         --enable-luainterp \
         --enable-gui=gtk2 \
