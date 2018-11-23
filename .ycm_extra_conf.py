@@ -91,8 +91,10 @@ flags = [
 #'../llvm/include',
 #'-isystem',
 #'../llvm/tools/clang/include',
-#'-I',
-#'.',
+'-I',
+'.',
+'-I',
+'./src',
 #'-I',
 #'./ClangCompleter',
 #'-isystem',
@@ -179,3 +181,9 @@ def FlagsForFile( filename, **kwargs ):
     'flags': final_flags,
     'include_paths_relative_to_dir': compilation_info.compiler_working_dir_
   }
+def Settings( **kwargs  ):
+    client_data = kwargs[ 'client_data'  ]
+    return {
+           'interpreter_path': client_data[ 'g:ycm_python_interpreter_path'  ],
+           'sys_path': client_data[ 'g:ycm_python_sys_path'  ]
+                }

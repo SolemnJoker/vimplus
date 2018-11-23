@@ -33,6 +33,7 @@ set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
 set relativenumber       " 设置相对行号
+set noshowmode           "关闭模式提示
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -55,8 +56,8 @@ set sidescroll=10        " 设置向右滚动字符数
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码补全
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set wildmenu             " vim自身命名行模式智能补全
-set completeopt-=preview " 补全时不显示窗口，只显示补全列表
+"set wildmenu             " vim自身命名行模式智能补全
+"set completeopt-=preview " 补全时不显示窗口，只显示补全列表
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 搜索设置
@@ -134,6 +135,10 @@ Plug 'yianwillis/vimcdoc'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'nsf/gocode'
 Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'tell-k/vim-autopep8'
+Plug 'ianva/vim-youdao-translater'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
 
@@ -141,8 +146,8 @@ imap jk <esc>
 imap <F9> (
 imap <F10> )
 imap <F11> _
-imap [[ {
-imap ]] }
+" imap [[ {
+" imap ]] }
 imap <F12> +
 "跳转书签
 nnoremap <space>m :'
@@ -189,13 +194,15 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-let g:onedark_termcolors=256
+" let g:gruvbox_termcolors=256
 colorscheme gruvbox
 
 " airline
 "ravenpower
 " hybridline
-let g:airline_theme="dark"
+" lucius
+" peaksea
+let g:airline_theme="lucius"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
@@ -259,14 +266,44 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1 
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
+let g:ycm_python_binary_path = '/usr/bin/python'
+let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:ycm_min_num_identifier_candidate_chars=2
+let g:ycm_key_invoke_completion='<c=z>'
+noremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
-" nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
+nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>ff :YcmCompleter FixIt<cr>
-nmap <F5> :YcmDiags<cr>
+nnoremap <leader>Fi :YcmCompleter FixIt<cr>
+nnoremap <c-d> :YcmCompleter GetDoc<cr>
+
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+" nmap <F5> :YcmDiags<cr>
+
+
+map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
+" function RunPython()
+"     let mp = &makeprg
+"     let ef = &errorformat
+"     let exeFile = expand("%:t")
+"     setlocal makeprg=python\ -u
+"     set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+"     silent make % copen
+"     let &makeprg = mp
+"     let &errorformat = ef 
+" endfunction
+
+
 
 " ctags
+set tags=./.tags;,.tags
 set tags+=/usr/include/tags
 set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
@@ -301,7 +338,7 @@ let uname = system('uname -s')
 if uname == "Darwin\n"
     let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
 else
-    let g:mkdp_path_to_chrome = '/usr/bin/google-chrome-stable %U'
+    let g:mkdp_path_to_chrome = '/usr/bin/chromium-browser %U'
 endif
 nmap <silent> <F7> <Plug>MarkdownPreview
 imap <silent> <F7> <Plug>MarkdownPreview
@@ -364,7 +401,32 @@ nnoremap <leader>gg :GV?<cr>
 "上一个buffer
 nnoremap <leader>3 :b#<cr>
 
-" 个性化
-if filereadable(expand($HOME . '/.vimrc.local'))
-    source $HOME/.vimrc.local
-endif
+"有道翻译
+vnoremap <silent> <c-t> :<C-u>Ydv<CR>
+nnoremap <silent> <c-t> :<C-u>Ydc<CR>
+noremap <leader>yd :<C-u>Yde<CR>
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+"
+"" 所生成的数据文件的名称
+"let g:gutentags_ctags_tagfile = '.tags'
+"
+"" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+"let s:vim_tags = expand('~/.cache/.tags')
+"let g:gutentags_cache_dir = s:vim_tags
+"
+"" 配置 ctags 的参数
+"let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+"let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+"let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"
+"" 检测 ~/.cache/tags 不存在就新建
+"if !isdirectory(s:vim_tags)
+"   silent! call mkdir(s:vim_tags, 'p')
+"   endif"
+"
+"" 个性化
+"if filereadable(expand($HOME . '/.vimrc.local'))
+"    source $HOME/.vimrc.local
+"endif
