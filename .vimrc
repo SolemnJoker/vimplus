@@ -40,6 +40,7 @@ set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
 set relativenumber       " 设置相对行号
+set noshowmode           "关闭模式提示
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -156,30 +157,12 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'nsf/gocode'
 Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'tell-k/vim-autopep8'
+Plug 'ianva/vim-youdao-translater'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
-
-imap jk <esc> 
-imap <F9> (
-imap <F10> )
-imap <F11> _
-imap -- _
-imap [[ {
-imap ]] }
-imap <F12> +
-"跳转书签
-nnoremap <space>m :'
-nnoremap <space>3 :''<cr>
-nnoremap <space>dm :delm 
-nnoremap <space><space> :
-
-"CompleteParameter
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter))
-
 
 " load vim default plugin
 runtime macros/matchit.vim
@@ -212,13 +195,15 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-let g:onedark_termcolors=256
+" let g:gruvbox_termcolors=256
 colorscheme gruvbox
 
 " airline
 "ravenpower
 " hybridline
-let g:airline_theme="dark"
+" lucius
+" peaksea
+let g:airline_theme="lucius"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
@@ -238,14 +223,14 @@ nnoremap <leader><leader>fp :FormatFunParam<cr>
 nnoremap <leader><leader>if :FormatIf<cr>
 
 " change-colorscheme
-" nnoremap <silent> <F9> :PreviousColorScheme<cr>
-" inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
-" nnoremap <silent> <F10> :NextColorScheme<cr>
-" inoremap <silent> <F10> <esc> :NextColorScheme<cr>
-" nnoremap <silent> <F11> :RandomColorScheme<cr>
-" inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
-" nnoremap <silent> <F12> :ShowColorScheme<cr>
-" inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
+nnoremap <silent> <F9> :PreviousColorScheme<cr>
+inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
+nnoremap <silent> <F10> :NextColorScheme<cr>
+inoremap <silent> <F10> <esc> :NextColorScheme<cr>
+nnoremap <silent> <F11> :RandomColorScheme<cr>
+inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
+nnoremap <silent> <F12> :ShowColorScheme<cr>
+inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 
 " prepare-code
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
@@ -282,14 +267,44 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1 
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
+let g:ycm_python_binary_path = '/usr/bin/python'
+let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:ycm_min_num_identifier_candidate_chars=2
+let g:ycm_key_invoke_completion='<c=z>'
+noremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
-" nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
+nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>ff :YcmCompleter FixIt<cr>
-nmap <F5> :YcmDiags<cr>
+nnoremap <leader>Fi :YcmCompleter FixIt<cr>
+nnoremap <c-d> :YcmCompleter GetDoc<cr>
+
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+" nmap <F5> :YcmDiags<cr>
+
+
+map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
+" function RunPython()
+"     let mp = &makeprg
+"     let ef = &errorformat
+"     let exeFile = expand("%:t")
+"     setlocal makeprg=python\ -u
+"     set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+"     silent make % copen
+"     let &makeprg = mp
+"     let &errorformat = ef 
+" endfunction
+
+
 
 " ctags
+set tags=./.tags;,.tags
 set tags+=/usr/include/tags
 set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
@@ -324,7 +339,7 @@ let uname = system('uname -s')
 if uname == "Darwin\n"
     let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
 else
-    let g:mkdp_path_to_chrome = '/usr/bin/google-chrome-stable %U'
+    let g:mkdp_path_to_chrome = '/usr/bin/chromium-browser %U'
 endif
 nmap <silent> <F7> <Plug>MarkdownPreview
 imap <silent> <F7> <Plug>MarkdownPreview
@@ -412,7 +427,7 @@ noremap <leader>yd :<C-u>Yde<CR>
 "   silent! call mkdir(s:vim_tags, 'p')
 "   endif"
 "
-" 个性化
-if filereadable(expand($HOME . '/.vimrc.local'))
-    source $HOME/.vimrc.local
-endif
+"" 个性化
+"if filereadable(expand($HOME . '/.vimrc.local'))
+"    source $HOME/.vimrc.local
+"endif

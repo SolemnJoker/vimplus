@@ -58,12 +58,10 @@ function compile_vim_on_ubuntu()
         --enable-multibyte \
         --enable-rubyinterp \
         --enable-pythoninterp \
-        --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+        --with-python-config-dir=/usr/lib/python2.7/config \
         --enable-perlinterp \
         --enable-luainterp \
-        --enable-gui=gtk2 \
-        --enable-cscope \
-        --prefix=/usr
+        --enable-gui=gtk2 --enable-cscope --prefix=/usr
     make VIMRUNTIMEDIR=/usr/share/vim/vim81
     sudo make install
     cd -
