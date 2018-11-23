@@ -166,7 +166,6 @@ imap <F11> _
 imap -- _
 imap [[ {
 imap ]] }
-imap ;; :
 imap <F12> +
 "跳转书签
 nnoremap <space>m :'
@@ -281,6 +280,8 @@ let g:ycm_warning_symbol = '>*'
 let g:ycm_seed_identifiers_with_syntax = 1 
 let g:ycm_complete_in_comments = 1 
 let g:ycm_complete_in_strings = 1 
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
 nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 " nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
@@ -386,6 +387,31 @@ nnoremap <leader>gg :GV?<cr>
 "上一个buffer
 nnoremap <leader>3 :b#<cr>
 
+"有道翻译
+vnoremap <silent> <c-t> :<C-u>Ydv<CR>
+nnoremap <silent> <c-t> :<C-u>Ydc<CR>
+noremap <leader>yd :<C-u>Yde<CR>
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+"
+"" 所生成的数据文件的名称
+"let g:gutentags_ctags_tagfile = '.tags'
+"
+"" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+"let s:vim_tags = expand('~/.cache/.tags')
+"let g:gutentags_cache_dir = s:vim_tags
+"
+"" 配置 ctags 的参数
+"let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+"let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+"let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"
+"" 检测 ~/.cache/tags 不存在就新建
+"if !isdirectory(s:vim_tags)
+"   silent! call mkdir(s:vim_tags, 'p')
+"   endif"
+"
 " 个性化
 if filereadable(expand($HOME . '/.vimrc.local'))
     source $HOME/.vimrc.local
