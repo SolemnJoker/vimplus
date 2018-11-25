@@ -164,6 +164,11 @@ Plug 'ianva/vim-youdao-translater'
 
 call plug#end()            
 
+nnoremap <space>m :'
+nnoremap <space>3 :''<cr>
+nnoremap <space>dm :delm 
+nnoremap <space><space> :
+
 " load vim default plugin
 runtime macros/matchit.vim
 
