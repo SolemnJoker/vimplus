@@ -41,6 +41,7 @@ set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
 set relativenumber       " 设置相对行号
 set noshowmode           "关闭模式提示
+set hidden               " 切换buf不会被关闭
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -145,6 +146,7 @@ Plug 'nsf/gocode'
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'ianva/vim-youdao-translater'
+Plug 'jalcine/cmake.vim'
 " Plug 'davidhalter/jedi-vim'
 " Plug 'ludovicchabant/vim-gutentags'
 
@@ -284,6 +286,7 @@ nnoremap <leader>i :YcmCompleter GoToDefinition<cr>
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
 nnoremap <leader>Fi :YcmCompleter FixIt<cr>
 nnoremap <c-d> :YcmCompleter GetDoc<cr>
+nnoremap <leader><leader>d :only<cr>
 
 let g:ycm_python_interpreter_path = ''
 let g:ycm_python_sys_path = []
