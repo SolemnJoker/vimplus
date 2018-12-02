@@ -31,9 +31,17 @@ function is_ubuntu1604()
     fi
 }
 
-# 源代码安装vim
-function compile_vim()
+# 在ubuntu上源代码安装vim
+function compile_vim_on_ubuntu()
 {
+    sudo apt-get remove -y vim vim-runtime gvim
+    sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
+    sudo rm -rf /usr/bin/vim*
+    sudo rm -rf /usr/local/bin/vim*
+    sudo rm -rf /usr/share/vim/vim*
+    sudo rm -rf /usr/local/share/vim/vim*
+    rm -rf ~/vim
+
     sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
         libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
         libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.1 lua5.1-dev
@@ -50,7 +58,7 @@ function compile_vim()
         --enable-multibyte \
         --enable-rubyinterp \
         --enable-pythoninterp \
-        --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+        --with-python-config-dir=/usr/lib/python2.7/config \
         --enable-perlinterp \
         --enable-luainterp \
         --enable-gui=gtk2 --enable-cscope --prefix=/usr
@@ -108,6 +116,9 @@ function copy_files()
     mkdir ~/.vim
     rm -rf ~/.vim/colors
     ln -s ${PWD}/colors ~/.vim
+
+    rm -rf ~/.vim/ftplugin
+    ln -s ${PWD}/ftplugin ~/.vim
 }
 
 # 安装mac平台字体
@@ -139,18 +150,18 @@ function install_vim_plugin()
     vim -c "PlugInstall" -c "q" -c "q"
 }
 
-# 在mac平台编译ycm插件
-function compile_ycm_on_mac()
+# linux编译ycm插件
+function compile_ycm_on_linux()
 {
     cd ~/.vim/plugged/YouCompleteMe
     ./install.py --clang-completer
 }
 
-# 在linux平台编译ycm插件
-function compile_ycm_on_linux()
+# mac编译ycm插件
+function compile_ycm_on_mac()
 {
     cd ~/.vim/plugged/YouCompleteMe
-    sudo ./install.py --clang-completer --go-completer
+    ./install.py --clang-completer --system-libclang
 }
 
 # 打印logo

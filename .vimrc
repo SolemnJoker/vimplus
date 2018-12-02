@@ -1,11 +1,18 @@
-"
-"             __                __          
-"     __   __/_/___ ___  ____  / /_  _______
-"     \ \ / / / __ `__ \/ __ \/ / / / / ___/
-"      \ V / / / / / / / /_/ / / /_/ (__  )
-"       \_/_/_/ /_/ /_/ ,___/_/\____/____/
-"                    /_/
-"            
+"   .  . .  .  . .  . S@t.. .  .  . .  .  . .  .  . .  .  . .  .  . .  .  . .  .  . .  .  . .  .  . .  .  . .  .  . .  ..
+"    .     ..t%SXSS%:;t.X8S% .   .      .       .       .       .       .       .       .       .       .       .       .
+"      . %St8;8:X;8:8:8%8;%%:@S:    . .    . .    ....    .  .    .  .    .  .    .  .    .  .    .  .    .  .    .  ....
+"  .    8: %.;t;S;%@88:X.8X8%;8S t@@%   .  %@@t  .X88X .      .       .   %@@@@@@@@@X:  .     .       .       .       .  
+"    ..X.;X%8t8%8ttX.88;8.8%:;% ;8:SX%.   SX.8S.  St88:  .  .   .  .    ..XS.@%SSS88S@:. X@@%  . . .    .  .    .  ......
+"   . X;:;8SS888;8tt;8:8:8; t:t8S 8:Xt.  :8888: .%888:.  .SSSSSSSSSSS%:  .S888t   @@8X: .%.88  .SSt  .:SS;  .%SSSSSSSS%. 
+"    :t8 :;X8S;8.8S;8S.8.t8:%8XS.. S8.8:.S8;8;  :@;@88 . S:88 X.88@88:@t..%S.  .. X;8@: :%:;8. X%:X;. 8;.;  %S8@XXSXSS8..
+"  .t88; X;8S8888;8S8t 8S88SSStt:. @.%8St;@8X  . t .8S   S:88:%888%;8t8:..S.S@%SSS8S88t .% @;  X:.X.  88t :.t@t8@ .......
+"  8; :888XSStS;88;88X%;;tt::;;8@ ..%X88:88Xt    .S@.::. S@8% X8.@;S888X .%;88SSSS.SX.:. 8S88: @;88t. 8.S8  t;@8@88@88S..
+"  S. :tX: ;%8S8 : .::. %8t  %S 8.  @88t8 8t.  . . .@8;  8888 @@%S;t8.8S .:SX8; .:.... . S8; ..8888:..8:8@: ;St@@888.@@..
+"    :8:;888888 .; .     8%8@       .8X.@8X  .    X%8@  .t@8S X88X:%888X .@8@8t  ..  .   SX%X .X;;S@%tS8; ;..SttSXS8888S.
+"    t.8XX;;8X% XX.  .    %8X8;   . :tX8@t     .  t8X8:  %@@S X8@@:t8tXt...:%t..       . X:8X  X8@@88@888t. %88t888 888t.
+"  .    :8;S: . S@.       t8;8:: .   .;:;. . .   .%@%:   t%%; .%%;..: t. .;  :  . . .    %;8.  ;X;X%.:.: t  ;t  ;:: :t;..
+"     :%@t%8   88.  .  .  :: . ..   .   .          .   . ..  .      ..   .    .       . . ... .   . .   .        ..      
+"      .. 8888   ..      ...   . .    .   .  . .     .   ..    .  .    .        .   .   . ..    .  .  .   .  . .     ....
 "
 " Author: chxuan <787280310@qq.com>
 " Repository: https://github.com/chxuan/vimplus
@@ -33,6 +40,7 @@ set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
 set relativenumber       " 设置相对行号
+set noshowmode           "关闭模式提示
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -106,7 +114,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'rkulla/pydiction'
+
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -126,14 +134,19 @@ Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'Shougo/echodoc.vim'
-"Plug 'terryma/vim-smooth-scroll'
+
 Plug 'terryma/vim-expand-region'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/github-complete.vim'
 Plug 'yianwillis/vimcdoc'
+Plug 'vim-scripts/indentpython.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'nsf/gocode'
 Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'tell-k/vim-autopep8'
+Plug 'ianva/vim-youdao-translater'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
 
@@ -189,13 +202,15 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-let g:onedark_termcolors=256
+" let g:gruvbox_termcolors=256
 colorscheme gruvbox
 
 " airline
 "ravenpower
 " hybridline
-let g:airline_theme="dark"
+" lucius
+" peaksea
+let g:airline_theme="lucius"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
@@ -215,14 +230,14 @@ nnoremap <leader><leader>fp :FormatFunParam<cr>
 nnoremap <leader><leader>if :FormatIf<cr>
 
 " change-colorscheme
-" nnoremap <silent> <F9> :PreviousColorScheme<cr>
-" inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
-" nnoremap <silent> <F10> :NextColorScheme<cr>
-" inoremap <silent> <F10> <esc> :NextColorScheme<cr>
-" nnoremap <silent> <F11> :RandomColorScheme<cr>
-" inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
-" nnoremap <silent> <F12> :ShowColorScheme<cr>
-" inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
+nnoremap <silent> <F9> :PreviousColorScheme<cr>
+inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
+nnoremap <silent> <F10> :NextColorScheme<cr>
+inoremap <silent> <F10> <esc> :NextColorScheme<cr>
+nnoremap <silent> <F11> :RandomColorScheme<cr>
+inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
+nnoremap <silent> <F12> :ShowColorScheme<cr>
+inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 
 " prepare-code
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
@@ -259,15 +274,44 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1 
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
+let g:ycm_python_binary_path = '/usr/bin/python'
+let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:ycm_min_num_identifier_candidate_chars=2
+let g:ycm_key_invoke_completion='<c=z>'
+noremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
-" nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
+nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader><a-d> :YcmCompleter GoToDoc:<cr>
 nnoremap <leader>Fi :YcmCompleter FixIt<cr>
-nmap <F5> :YcmDiags<cr>
+nnoremap <c-d> :YcmCompleter GetDoc<cr>
+
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+" nmap <F5> :YcmDiags<cr>
+
+
+map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
+" function RunPython()
+"     let mp = &makeprg
+"     let ef = &errorformat
+"     let exeFile = expand("%:t")
+"     setlocal makeprg=python\ -u
+"     set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+"     silent make % copen
+"     let &makeprg = mp
+"     let &errorformat = ef 
+" endfunction
+
+
 
 " ctags
+set tags=./.tags;,.tags
 set tags+=/usr/include/tags
 set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
@@ -365,7 +409,32 @@ nnoremap <leader>gg :GV?<cr>
 "上一个buffer
 nnoremap <leader>3 :b#<cr>
 
-" 个性化
-if filereadable(expand($HOME . '/.vimrc.local'))
-    source $HOME/.vimrc.local
-endif
+"有道翻译
+vnoremap <silent> <c-t> :<C-u>Ydv<CR>
+nnoremap <silent> <c-t> :<C-u>Ydc<CR>
+noremap <leader>yd :<C-u>Yde<CR>
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+"
+"" 所生成的数据文件的名称
+"let g:gutentags_ctags_tagfile = '.tags'
+"
+"" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+"let s:vim_tags = expand('~/.cache/.tags')
+"let g:gutentags_cache_dir = s:vim_tags
+"
+"" 配置 ctags 的参数
+"let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+"let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+"let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"
+"" 检测 ~/.cache/tags 不存在就新建
+"if !isdirectory(s:vim_tags)
+"   silent! call mkdir(s:vim_tags, 'p')
+"   endif"
+"
+"" 个性化
+"if filereadable(expand($HOME . '/.vimrc.local'))
+"    source $HOME/.vimrc.local
+"endif

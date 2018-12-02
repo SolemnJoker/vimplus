@@ -27,28 +27,28 @@ An automatic configuration program for vim
 
 - 版本要求
 
-    `ubuntu14.04`及其以上`64`位系统。
+    `ubuntu16.04`及其以上系统。
 
-- 安装vimplus
+- 安装vimplus(建议在普通用户下安装)
 
     ```bash
     git clone https://github.com/chxuan/vimplus.git ~/.vimplus
     cd ~/.vimplus
-    sudo ./install.sh
+    ./install.sh
     ```
 
 ### Centos
 
 - 版本要求
 
-    `centos7`及其以上`64`位系统。
+    `centos7`及其以上系统。
 
-- 安装vimplus
+- 安装vimplus(建议在普通用户下安装)
 
     ```bash
     git clone https://github.com/chxuan/vimplus.git ~/.vimplus
     cd ~/.vimplus
-    sudo ./install.sh
+    ./install.sh
     ```
 
 ### ArchLinux
@@ -58,7 +58,7 @@ An automatic configuration program for vim
     ```bash
     git clone https://github.com/chxuan/vimplus.git ~/.vimplus
     cd ~/.vimplus
-    sudo ./install.sh
+    ./install.sh
     ```
 
 ## 个性化
@@ -95,16 +95,13 @@ An automatic configuration program for vim
 | [vim-easymotion][23]                | 强大的光标快速移动工具，强大到颠覆你的插件观                                   |
 | [incsearch.vim][24]                 | 模糊字符搜索插件                                                               |
 | [markdown-preview][26]              | markdown实时预览                                                               |
-| [pydiction][32]                     | 基于字典的python语法补全                                                       |
 | [vim-fugitive][36]                  | 集成Git                                                                        |
 | [gv][64]                            | 显示git提交记录                                                                |
 | [vim-slash][50]                     | 优化搜索，移动光标后清除高亮                                                   |
 | [echodoc][57]                       | 补全函数时在命令栏显示函数签名                                                 |
 | [vim-smooth-scroll][60]             | 让翻页更顺畅                                                                   |
-| [vim-expand-region][61]             | 快速选择区域                                                                   |
 | [clever-f.vim][68]                  | 强化f和F键                                                                     |
 | [github-complete.vim][69]           | Emoji:dog:补全                                                                 |
-| [vimcdoc][73]                       | vim中文文档                                                                    |
 
 
 ## 快捷键
@@ -133,7 +130,7 @@ An automatic configuration program for vim
 | `<c-n>`      | 切换到下一个buffer                   |
 | `<leader>d`  | 删除当前buffer                       |
 | `<leader>D`  | 删除当前buffer外的所有buffer         |
-| `vi`         | 运行vi编辑器时,默认启动开始页面      |
+| `vim`        | 运行vim编辑器时,默认启动开始页面     |
 | `<F5>`       | 显示语法错误提示窗口                 |
 | `<F7>`       | 启用markdown实时预览                 |
 | `<F8>`       | 关闭markdown实时预览                 |
@@ -154,8 +151,6 @@ An automatic configuration program for vim
 | `vaf`        | 选中函数内容（包括函数名 花括号）    |
 | `daf`        | 删除函数内容（包括函数名 花括号）    |
 | `caf`        | 改写函数内容（包括函数名 花括号）    |
-| `+`          | 逐渐增大选择区域                     |
-| `-`          | 逐渐减小选择区域                     |
 | `fa`         | 查找字母a，然后再按f键查找下一个     |
 | `<c-x><c-o>` | Emoji:dog:补全                       |
 
@@ -172,7 +167,7 @@ An automatic configuration program for vim
 
 - **`安装vimplus会经常失败，安装了几次都不成功！！！`**
 
-    vimplus安装时需要访问外国网站，由于网络原因，可能会失败，安装成功也要1个多小时，ycm插件有200M左右，下载比较耗时，这里有下载好的[YouCompleteMe.tar.gz][37]文件，下载后解压到~/.vim/plugged/目录，并进入YouCompleteMe目录执行`./install.py --clang-completer`即可安装。
+    vimplus安装时需要访问外国网站，由于网络原因，可能会失败，安装成功也要1个多小时，ycm插件有200M左右，下载比较耗时，这里有下载好的[YouCompleteMe.tar.gz][37]文件，下载后解压到~/.vim/plugged/目录，并进入YouCompleteMe目录，linux用户执行`./install.py --clang-completer`，mac用户执行`./install.py --clang-completer --system-libclang`即可安装。
 
 - **`使用第三方库时怎么让ycm补全第三方库API？`**
 
@@ -181,6 +176,10 @@ An automatic configuration program for vim
 - **`安装vimplus完成后ycm不能够工作！！！`**
 
     这里的原因可能就有很多了，可能每个人遇到的问题不一样，但`vimplus`尽最大努力不让用户操心，需要注意的是ycm插件只支持`64`位的系统，更多信息请访问[ycm官网][38]。
+
+- **`在aaa用户下安装了vimplus，在bbb用户下不能使用？`**
+
+    目前vimplus是基于用户的，如果你想在其他用户下也能使用vimplus，也需要单独安装。
 
 - **`在Archlinux环境下不能使用ycm怎么办？(缺少libtinfo.so.5)`**
 
@@ -195,51 +194,26 @@ An automatic configuration program for vim
     那就麻烦您打赏一颗:star::star:吧，给予我继续维护的动力。
 
 
-## 特性展示
+## 贡献者
 
-- YouCompleteMe 
+<table>
+<tr>
+<td width="20%"><a href="https://github.com/chxuan"><img src="https://avatars2.githubusercontent.com/u/6542180?s=400&v=4"/></a><p align="center">chxuan</p></td>
+<td width="20%"><a href="https://github.com/dofy"><img src="https://avatars1.githubusercontent.com/u/344197?s=400&v=4"/></a><p align="center">dofy</p></td>
+<td width="20%"><a href="https://github.com/urain39"><img src="https://avatars2.githubusercontent.com/u/16981964?s=400&v=4"/></a><p align="center">urain39</p></td>
+<td width="20%"><a href="https://github.com/freedomDR"><img src="https://avatars3.githubusercontent.com/u/11146756?s=400&v=4"/></a><p align="center">freedomDR</p></td>
+<td width="20%"><a href="https://github.com/starifly"><img src="https://avatars2.githubusercontent.com/u/2003879?s=400&v=4"/></a><p align="center">starifly</p></td>
+</table>
 
-    ![][40]
 
-- cpp-mode
+## vimplus star趋势图
 
-    ![][71]
+[![Sparkline](https://stars.medv.io/chxuan/vimplus.svg)](https://stars.medv.io/chxuan/vimplus)
 
-- LeaderF 
 
-    ![][41]
+## License
 
-- vim-airline
-
-    ![][42]
-
-- vim-surround
-
-    ![][43]
-
-- vim-commentary
-
-    ![][44]
-
-- auto-pairs
-
-    ![][45]
-
-- vim-easymotion
-
-    ![][46]
-
-- vim-devicons
-
-    ![][47]
-
-- vim-startify
-
-    ![][48]
-
-- markdown-preview
-
-    ![][49]
+This software is licensed under the [MIT license][75]. © 2016 chxuan
 
 
   [1]: https://raw.githubusercontent.com/chxuan/vimplus/master/screenshots/vimplus-logo.png
@@ -265,21 +239,10 @@ An automatic configuration program for vim
   [25]: https://github.com/mhinz/vim-startify
   [26]: https://github.com/iamcco/markdown-preview.vim
   [27]: https://github.com/chxuan/change-colorscheme
-  [32]: https://github.com/rkulla/pydiction
   [36]: https://github.com/tpope/vim-fugitive
-  [37]: https://pan.baidu.com/s/1i481Eeh
+  [37]: https://pan.baidu.com/s/1-Z_U-eKbkMQqmI03qTzmFw
   [38]: https://github.com/Valloric/YouCompleteMe
   [39]: https://github.com/chxuan/vimplus/issues
-  [40]: https://camo.githubusercontent.com/1f3f922431d5363224b20e99467ff28b04e810e2/687474703a2f2f692e696d6775722e636f6d2f304f50346f6f642e676966
-  [41]: https://github.com/Yggdroot/Images/blob/master/leaderf/leaderf_1.gif
-  [42]: https://camo.githubusercontent.com/ba79534309330accd776a8d2a0712f7c4037d7f9/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f3330363530322f313037323632332f34346332393261302d313439352d313165332d396365362d6463616461336631633533362e676966
-  [43]: https://camo.githubusercontent.com/1f02cead8bdcf894f26b0006c44068a33a7dc8e5/687474703a2f2f6a6f65646963617374726f2e636f6d2f7374617469632f70696374757265732f737572726f756e645f656e2e676966
-  [44]: https://camo.githubusercontent.com/2f5cb5bc9a964b0d9e623b5b3aff0314294ac841/687474703a2f2f6a6f65646963617374726f2e636f6d2f7374617469632f70696374757265732f636f6d6d656e746172795f656e2e676966
-  [45]: https://camo.githubusercontent.com/372b34413e710cdbc95c5a5c1f901baf9e77791d/687474703a2f2f6a6f65646963617374726f2e636f6d2f7374617469632f70696374757265732f736d617274696e7075745f656e2e676966
-  [46]: https://camo.githubusercontent.com/d5f800b9602faaeccc2738c302776a8a11797a0e/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f333739373036322f323033393335392f61386539333864362d383939662d313165332d383738392d3630303235656138333635362e676966
-  [47]: https://raw.githubusercontent.com/wiki/ryanoasis/vim-devicons/screenshots/v0.9.x/overall-screenshot.png
-  [48]: https://raw.githubusercontent.com/mhinz/vim-startify/master/images/startify-menu.png
-  [49]: https://cloud.githubusercontent.com/assets/5492542/15363504/839753be-1d4b-11e6-9ac8-def4d7122e8d.gif
   [50]: https://github.com/junegunn/vim-slash
   [51]: https://github.com/ryanoasis/nerd-fonts
   [52]: https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
@@ -290,7 +253,6 @@ An automatic configuration program for vim
   [58]: https://github.com/chxuan/cpp-mode
   [59]: https://github.com/chxuan/vimplus/blob/master/help.md
   [60]: https://github.com/terryma/vim-smooth-scroll
-  [61]: https://github.com/terryma/vim-expand-region
   [62]: https://github.com/mileszs/ack.vim
   [64]: https://github.com/junegunn/gv.vim
   [65]: https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example1.gif
@@ -299,7 +261,6 @@ An automatic configuration program for vim
   [68]: https://github.com/rhysd/clever-f.vim
   [69]: https://github.com/rhysd/github-complete.vim
   [70]: https://github.com/chxuan/vim-buffer
-  [71]: https://raw.githubusercontent.com/chxuan/cpp-mode/master/screenshots/cpp-mode.gif
   [72]: https://github.com/chxuan/vim-edit
-  [73]: https://github.com/yianwillis/vimcdoc
   [74]: https://github.com/chxuan/tagbar
+  [75]: https://github.com/chxuan/vimplus/blob/master/LICENSE
