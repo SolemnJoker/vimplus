@@ -41,6 +41,7 @@ set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
 set relativenumber       " 设置相对行号
 set noshowmode           "关闭模式提示
+set hidden              "允许在有未保存的修改时切换缓冲区
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码缩进和排版
@@ -282,6 +283,7 @@ nnoremap <leader>i :YcmCompleter GoToDefinition<cr>
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
 nnoremap <leader>Fi :YcmCompleter FixIt<cr>
 nnoremap <c-d> :YcmCompleter GetDoc<cr>
+nnoremap <leader><leader>d :only<cr>
 
 let g:ycm_python_interpreter_path = ''
 let g:ycm_python_sys_path = []
@@ -315,7 +317,7 @@ set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+  \   'c' : ['->', '.','re![_a-zA-Z0-9]'],
   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
   \             're!\[.*\]\s'],
   \   'ocaml' : ['.', '#'],
