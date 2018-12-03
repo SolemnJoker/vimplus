@@ -93,20 +93,6 @@ set encoding=utf8
 set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" gvim/macvim设置
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("gui_running")
-    set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete:h18 " 设置字体
-    set guioptions-=m           " 隐藏菜单栏
-    set guioptions-=T           " 隐藏工具栏
-    set guioptions-=L           " 隐藏左侧滚动条
-    set guioptions-=r           " 隐藏右侧滚动条
-    set guioptions-=b           " 隐藏底部滚动条
-    set showtabline=0           " 隐藏Tab栏
-    set guicursor=n-v-c:ver5    " 设置光标为竖线
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 插件列表
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
@@ -160,15 +146,32 @@ Plug 'nsf/gocode'
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'ianva/vim-youdao-translater'
+Plug 'jalcine/cmake.vim'
 " Plug 'davidhalter/jedi-vim'
 " Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
 
+imap jk <esc> 
+imap <F9> (
+imap <F10> )
+imap <F11> _
+imap [[ {
+imap ]] }
+imap <F12> +
+"跳转书签
 nnoremap <space>m :'
 nnoremap <space>3 :''<cr>
 nnoremap <space>dm :delm 
 nnoremap <space><space> :
+
+"CompleteParameter
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter))
+
 
 " load vim default plugin
 runtime macros/matchit.vim
@@ -346,7 +349,7 @@ let uname = system('uname -s')
 if uname == "Darwin\n"
     let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
 else
-    let g:mkdp_path_to_chrome = '/usr/bin/chromium-browser %U'
+    let g:mkdp_path_to_chrome = '/usr/bin/google-chrome-stable %U'
 endif
 nmap <silent> <F7> <Plug>MarkdownPreview
 imap <silent> <F7> <Plug>MarkdownPreview
