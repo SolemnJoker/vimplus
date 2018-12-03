@@ -39,7 +39,7 @@ set cursorline           " 高亮显示当前行
 set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
-set relativenumber       " 设置相对行号
+" set relativenumber       " 设置相对行号
 set noshowmode           "关闭模式提示
 set hidden              "允许在有未保存的修改时切换缓冲区
 
@@ -201,8 +201,8 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-" let g:gruvbox_termcolors=256
-colorscheme gruvbox
+let g:monokai_termcolors=256
+colorscheme monokai
 
 " airline
 "ravenpower
