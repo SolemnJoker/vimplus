@@ -91,6 +91,8 @@ set helplang=cn
 set termencoding=utf-8
 set encoding=utf8
 set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
+silent exec 'lan en_US.UTF-8'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 插件列表
@@ -147,18 +149,20 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'ianva/vim-youdao-translater'
 Plug 'jalcine/cmake.vim'
-" Plug 'davidhalter/jedi-vim'
 " Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
 
 imap jk <esc> 
-imap <F9> (
-imap <F10> )
-imap <F11> _
-imap [[ {
-imap ]] }
-imap <F12> +
+" imap <F9> (
+" imap <F10> )
+" imap <F11> _
+" imap <F12> +
+nnoremap <space>i :!sudo python setup.py install<cr><cr>
+nnoremap <space><space>wi :w<cr>!sudo python setup.py install<cr><cr>
+nnoremap <space>w :w <cr>
+"强制保存需要sudo打开的文件
+cmap w!! w !sudo tee > /dev/null % 
 "跳转书签
 nnoremap <space>m :'
 nnoremap <space>3 :''<cr>
@@ -204,15 +208,15 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-let g:monokai_termcolors=256
-colorscheme monokai
+let g:gruvbox_termcolors=256
+colorscheme gruvbox
 
 " airline
 "ravenpower
 " hybridline
 " lucius
 " peaksea
-let g:airline_theme="lucius"
+let g:airline_theme="dark"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
@@ -269,8 +273,8 @@ let g:NERDTreeDirArrowCollapsible='▼'
 
 " YCM
 let g:ycm_confirm_extra_conf = 0 
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
+let g:ycm_error_symbol = '✗'
+let g:ycm_warning_symbol = '>'
 let g:ycm_seed_identifiers_with_syntax = 1 
 let g:ycm_complete_in_comments = 1 
 let g:ycm_complete_in_strings = 1 
@@ -280,6 +284,8 @@ let g:ycm_python_binary_path = '/usr/bin/python'
 let g:ycm_server_python_interpreter = '/usr/bin/python'
 let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_key_invoke_completion='<c=z>'
+" set completeopt=menu,menuonelet 
+let g:ycm_add_preview_to_completeopt = 0
 noremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
@@ -295,6 +301,22 @@ let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_sys_path'
   \]
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_filetype_whitelist = { 
+            \ "c":1,
+            \ "cpp":1, 
+            \ "objc":1,
+            \ "python":1,
+            \ "go":1,
+            \ "perl":1,
+            \ "java":1,
+            \ "javascript":1,
+            \ "sh":1,
+            \ "zsh":1,
+            \ "zimbu":1,
+            \ }
 
 " nmap <F5> :YcmDiags<cr>
 
@@ -319,20 +341,25 @@ set tags+=/usr/include/tags
 set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
 let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_semantic_triggers =  {
+"   \   'c' : ['->', '.','re!\w{2}'],
+"   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"   \             're!\[.*\]\s'],
+"   \   'ocaml' : ['.', '#'],
+"   \   'cpp,objcpp' : ['->', '.', '::','re!\w{2}'],
+"   \   'perl' : ['->'],
+"   \   'php' : ['->', '::'],
+"   \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"   \   'ruby' : ['.', '::'],
+"   \   'lua' : ['.', ':'],
+"   \   'erlang' : [':'],
+"   \ }
+" let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
+" let g:ycm_semantic_triggers.cpp = ['->', '.', ' ', '(', '[', '&',']']
 let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.','re![_a-zA-Z0-9]'],
-  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \             're!\[.*\]\s'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
-let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
+        \   'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+        \   'cs,lua,javascript': ['re!\w{2}'],
+        \ }
 
 " tagbar
 let g:tagbar_width = 30
@@ -349,7 +376,7 @@ let uname = system('uname -s')
 if uname == "Darwin\n"
     let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
 else
-    let g:mkdp_path_to_chrome = '/usr/bin/google-chrome-stable %U'
+    let g:mkdp_path_to_chrome = '/usr/bin/chromium-browser %U'
 endif
 nmap <silent> <F7> <Plug>MarkdownPreview
 imap <silent> <F7> <Plug>MarkdownPreview
@@ -360,10 +387,6 @@ imap <silent> <F8> <Plug>StopMarkdownPreview
 let g:EasyMotion_smartcase = 1
 map <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
-
-" pydiction
-let g:pydiction_location='~/.vim/plugged/pydiction/complete-dict'
-let g:pydiction_menu_height=10
 
 " nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
@@ -441,3 +464,73 @@ noremap <leader>yd :<C-u>Yde<CR>
 "if filereadable(expand($HOME . '/.vimrc.local'))
 "    source $HOME/.vimrc.local
 "endif
+"
+"
+"""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"新建.c,.h,.sh,.java文件，自动插入文件头 
+ autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+"定义函数SetTitle，自动插入文件头 
+func! SetTitle() 
+    "如果文件类型为.sh文件 
+    if &filetype == 'sh' 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: Wenjun.Xu") 
+        call append(line(".")+2, "\# mail: wenjun.xu@xtalpi.com") 
+        "原来的时间形式比较复杂，不喜欢，改变一下
+        "call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+3, "\# Created Time: ".strftime("%Y-%m-%d",localtime()))
+        call append(line(".")+4, "\#########################################################################") 
+        call append(line(".")+5, "\#!/bin/bash") 
+        call append(line(".")+6, "") 
+    else 
+        call setline(1, "/*************************************************************************") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: Wenjun.Xu") 
+        call append(line(".")+2, "\# mail: wenjun.xu@xtalpi.com") 
+        " 同样的 改变时间格式
+        "call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+3, "\# Created Time: ".strftime("%Y-%m-%d",localtime()))
+        call append(line(".")+4, " ************************************************************************/") 
+        call append(line(".")+5, "")
+    endif
+
+    " if &filetype == 'cpp'
+        " call append(line(".")+6, "#include<iostream>")
+        " call append(line(".")+7, "using namespace std;")
+        " call append(line(".")+8, "")
+    " endif
+
+    " if &filetype == 'c'
+    "     call append(line(".")+6, "#include<stdio.h>")
+    "     call append(line(".")+7, "")
+    " endif
+
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc
+
+autocmd BufNewFile *py exec ":call SetPythonTitle()"
+
+func! SetPythonTitle()
+    call setline(1,"#!/usr/bin/env python")
+    call append( line("."),"#-*- coding: utf-8 -*-"  )
+    call append(line(".")+1," ")
+    call append(line(".")+2, "\# File Name: ".expand("%")) 
+    call append(line(".")+3, "\# Author: Wenjun.Xu") 
+    call append(line(".")+4, "\# mail: wenjun.xu@xtalpi.com") 
+    call append(line(".")+5, "\# Created Time: ".strftime("%Y-%m-%d",localtime()))    
+endfunc
+
+if has("autocmd")
+  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+  au InsertEnter,InsertChange *
+    \ if v:insertmode == 'i' | 
+    \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+    \ elseif v:insertmode == 'r' |
+    \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+    \ endif
+  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+endif
+
