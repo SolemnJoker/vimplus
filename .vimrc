@@ -148,7 +148,11 @@ Plug 'nsf/gocode'
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'ianva/vim-youdao-translater'
-Plug 'jalcine/cmake.vim'
+" Plug 'jalcine/cmake.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'skywind3000/asyncrun.vim'
 " Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
@@ -286,7 +290,8 @@ let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_key_invoke_completion='<c=z>'
 " set completeopt=menu,menuonelet 
 let g:ycm_add_preview_to_completeopt = 0
-noremap <leader>u :YcmCompleter GoToDeclaration<cr>
+noremap <leader>u :YcmCompleter GoToDefinitionElseDeclaration<cr>
+" noremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
@@ -307,6 +312,7 @@ let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_filetype_whitelist = { 
             \ "c":1,
             \ "cpp":1, 
+            \ "cmake":1,
             \ "objc":1,
             \ "python":1,
             \ "go":1,
@@ -319,6 +325,15 @@ let g:ycm_filetype_whitelist = {
             \ }
 
 " nmap <F5> :YcmDiags<cr>
+
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
@@ -336,7 +351,10 @@ map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
 
 
 " ctags
-set tags=./.tags;,.tags
+cmap atcp AsyncRun ctags -R --c++-kinds=+px --fields=+iaS --extra=+q
+cmap atc AsyncRun ctags -R --c-kinds=+px --fields=+iaS --extra=+q
+cmap atp AsyncRun ctags -R --python-kinds=+px --fields=+iaS --extra=+q
+set tags=./tags;,tags
 set tags+=/usr/include/tags
 set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
