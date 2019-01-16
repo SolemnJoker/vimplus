@@ -30,12 +30,12 @@ set noeb                 " 关闭错误的提示
 syntax enable            " 开启语法高亮功能
 syntax on                " 自动语法高亮
 set t_Co=256             " 开启256色支持
-set cmdheight=2          " 设置命令行的高度
+set cmdheight=1          " 设置命令行的高度
 set showcmd              " select模式下显示选中的行数
 set ruler                " 总是显示光标位置
 set laststatus=2         " 总是显示状态栏
 set number               " 开启行号显示
-set cursorline           " 高亮显示当前行
+" set cursorline           " 高亮显示当前行
 set whichwrap+=<,>,h,l   " 设置光标键跨行
 set ttimeoutlen=0        " 设置<ESC>键响应时间
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
@@ -145,7 +145,7 @@ Plug 'yianwillis/vimcdoc'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'nsf/gocode'
-Plug 'tenfyzhong/CompleteParameter.vim'
+" Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'ianva/vim-youdao-translater'
 " Plug 'jalcine/cmake.vim'
@@ -174,11 +174,14 @@ nnoremap <space>dm :delm
 nnoremap <space><space> :
 
 "CompleteParameter
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter))
+" let g:complete_parameter_use_ultisnips_mapping = 1
+" inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+" smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+" imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+" smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+" imap <c-k> <Plug>(complete_parameter#goto_previous_parameter))
+" let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+" inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>)
 
 
 " load vim default plugin
