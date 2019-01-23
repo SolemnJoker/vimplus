@@ -101,22 +101,16 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'chxuan/cpp-mode'
 Plug 'chxuan/vim-edit'
-Plug 'chxuan/change-colorscheme'
 Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
 Plug 'chxuan/tagbar'
-Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fugitive'
@@ -128,7 +122,6 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
-Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/gv.vim'
 Plug 'kana/vim-textobj-user'
@@ -140,11 +133,8 @@ Plug 'Shougo/echodoc.vim'
 
 Plug 'terryma/vim-expand-region'
 Plug 'rhysd/clever-f.vim'
-Plug 'rhysd/github-complete.vim'
 Plug 'yianwillis/vimcdoc'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
-Plug 'nsf/gocode'
 " Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'ianva/vim-youdao-translater'
@@ -153,6 +143,17 @@ Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'skywind3000/asyncrun.vim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+  Plug 'zchee/deoplete-jedi'
+  Plug 'zchee/deoplete-go'
+  Plug 'zchee/deoplete-clang'
 " Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()            
@@ -278,56 +279,6 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeDirArrowExpandable='▷'
 let g:NERDTreeDirArrowCollapsible='▼'
 
-" YCM
-let g:ycm_confirm_extra_conf = 0 
-let g:ycm_error_symbol = '✗'
-let g:ycm_warning_symbol = '>'
-let g:ycm_seed_identifiers_with_syntax = 1 
-let g:ycm_complete_in_comments = 1 
-let g:ycm_complete_in_strings = 1 
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-let g:ycm_python_binary_path = '/usr/bin/python'
-let g:ycm_server_python_interpreter = '/usr/bin/python'
-let g:ycm_min_num_identifier_candidate_chars=2
-let g:ycm_key_invoke_completion='<c=z>'
-" set completeopt=menu,menuonelet 
-let g:ycm_add_preview_to_completeopt = 0
-noremap <leader>u :YcmCompleter GoToDefinitionElseDeclaration<cr>
-" noremap <leader>u :YcmCompleter GoToDeclaration<cr>
-" 已经使用cpp-mode插件提供的转到函数实现的功能
-nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
-nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>Fi :YcmCompleter FixIt<cr>
-nnoremap <c-d> :YcmCompleter GetDoc<cr>
-nnoremap <leader><leader>d :only<cr>
-
-let g:ycm_python_interpreter_path = ''
-let g:ycm_python_sys_path = []
-let g:ycm_extra_conf_vim_data = [
-  \  'g:ycm_python_interpreter_path',
-  \  'g:ycm_python_sys_path'
-  \]
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_filetype_whitelist = { 
-            \ "c":1,
-            \ "cpp":1, 
-            \ "cmake":1,
-            \ "objc":1,
-            \ "python":1,
-            \ "go":1,
-            \ "perl":1,
-            \ "java":1,
-            \ "javascript":1,
-            \ "sh":1,
-            \ "zsh":1,
-            \ "zimbu":1,
-            \ }
-
-" nmap <F5> :YcmDiags<cr>
 
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
@@ -351,7 +302,8 @@ map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
 "     let &errorformat = ef 
 " endfunction
 
-
+"deoplete
+let g:deoplete#enable_at_startup = 1
 
 " ctags
 cmap atcp AsyncRun ctags -R --c++-kinds=+px --fields=+iaS --extra=+q
@@ -361,26 +313,6 @@ set tags=./tags;,tags
 set tags+=/usr/include/tags
 set tags+=~/.vim/systags
 set tags+=~/.vim/x86_64-linux-gnu-systags
-let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_semantic_triggers =  {
-"   \   'c' : ['->', '.','re!\w{2}'],
-"   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"   \             're!\[.*\]\s'],
-"   \   'ocaml' : ['.', '#'],
-"   \   'cpp,objcpp' : ['->', '.', '::','re!\w{2}'],
-"   \   'perl' : ['->'],
-"   \   'php' : ['->', '::'],
-"   \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"   \   'ruby' : ['.', '::'],
-"   \   'lua' : ['.', ':'],
-"   \   'erlang' : [':'],
-"   \ }
-" let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
-" let g:ycm_semantic_triggers.cpp = ['->', '.', ' ', '(', '[', '&',']']
-let g:ycm_semantic_triggers =  {
-        \   'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-        \   'cs,lua,javascript': ['re!\w{2}'],
-        \ }
 
 " tagbar
 let g:tagbar_width = 30
