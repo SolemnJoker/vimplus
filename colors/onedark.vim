@@ -109,6 +109,7 @@ let s:green = { "gui": "#98C379", "cterm": "114", "cterm16": "2" }
 
 let s:yellow = { "gui": "#E5C07b", "cterm": "180", "cterm16": "3" }
 let s:dark_yellow = { "gui": "#D19A66", "cterm": "173", "cterm16": "11" }
+let s:light_yellow = { "gui": "#FFFFD3", "cterm": "10", "cterm16": "3" }
 
 let s:blue = { "gui": "#61AFEF", "cterm": "39", "cterm16": "4" } " Alternate cterm: 75
 
@@ -117,6 +118,8 @@ let s:purple = { "gui": "#C678DD", "cterm": "170", "cterm16": "5" } " Alternate 
 let s:cyan = { "gui": "#56B6C2", "cterm": "38", "cterm16": "6" } " Alternate cterm: 73
 
 let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+
+let s:lightgrey   = { "gui": "#575b61", "cterm": "237" }
 
 let s:black = { "gui": "#282C34", "cterm": "235", "cterm16": "0" }
 let s:visual_black = { "gui": "NONE", "cterm": "NONE", "cterm16": s:black.cterm16 } " Black out selected text in 16-color visual mode
@@ -180,10 +183,10 @@ call s:h("CursorIM", {}) " like Cursor, but used when in IME mode
 call s:h("CursorColumn", { "bg": s:cursor_grey }) " the screen column that the cursor is in when 'cursorcolumn' is set
 call s:h("CursorLine", { "bg": s:cursor_grey }) " the screen line that the cursor is in when 'cursorline' is set
 call s:h("Directory", { "fg": s:blue }) " directory names (and other special names in listings)
-call s:h("DiffAdd", { "fg": s:green }) " diff mode: Added line
-call s:h("DiffChange", { "fg": s:dark_yellow }) " diff mode: Changed line
-call s:h("DiffDelete", { "fg": s:red }) " diff mode: Deleted line
-call s:h("DiffText", { "fg": s:blue }) " diff mode: Changed text within a changed line
+call s:h("DiffAdd", { "fg": s:green , "bg": s:lightgrey}) " diff mode: Added line
+call s:h("DiffChange", { "fg": s:blue, "bg": s:lightgrey }) " diff mode: Changed line
+call s:h("DiffDelete", { "fg": s:red, "bg": s:lightgrey}) " diff mode: Deleted line
+call s:h("DiffText", { "fg": s:light_yellow, "bg": s:special_grey }) " diff mode: Changed text within a changed line
 call s:h("ErrorMsg", {}) " error messages on the command line
 call s:h("VertSplit", { "fg": s:vertsplit }) " the column separating vertically split windows
 call s:h("Folded", { "fg": s:comment_grey }) " line used for closed folds
@@ -192,7 +195,7 @@ call s:h("SignColumn", {}) " column where signs are displayed
 call s:h("IncSearch", { "fg": s:black, "bg": s:yellow }) " 'incsearch' highlighting; also used for the text replaced with ":s///c"
 call s:h("LineNr", { "fg": s:gutter_fg_grey }) " Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 call s:h("CursorLineNr", {}) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-call s:h("MatchParen", { "fg": s:blue, "gui": "underline" }) " The character under the cursor or just before it, if it is a paired bracket, and its match.
+call s:h("MatchParen", { "fg": s:blue, "bg": s:lightgrey ,"gui": "underline" }) " The character under the cursor or just before it, if it is a paired bracket, and its match.
 call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
 call s:h("MoreMsg", {}) " more-prompt
 call s:h("NonText", { "fg": s:special_grey }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).

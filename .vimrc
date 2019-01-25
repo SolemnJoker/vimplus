@@ -215,8 +215,8 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-let g:monokai_termcolors=256
-colorscheme monokai
+let g:onedark_termcolors=256
+colorscheme onedark
 
 " airline
 "ravenpower
@@ -378,7 +378,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 " let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
 " let g:ycm_semantic_triggers.cpp = ['->', '.', ' ', '(', '[', '&',']']
 let g:ycm_semantic_triggers =  {
-        \   'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+        \   'cpp' : ['->', '.', '::','re!\w{2}'],
+        \   'c,python,java,go,erlang,perl': ['re!\w{2}'],
         \   'cs,lua,javascript': ['re!\w{2}'],
         \ }
 
