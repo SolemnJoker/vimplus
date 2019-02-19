@@ -223,7 +223,7 @@ colorscheme onedark
 " hybridline
 " lucius
 " peaksea
-let g:airline_theme="peaksea"
+let g:airline_theme="onedark"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
@@ -556,3 +556,5 @@ if has("autocmd")
   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 endif
 
+"format json
+nnoremap <leader>j :%!python -m json.tool<CR>
