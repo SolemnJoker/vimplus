@@ -55,6 +55,7 @@ set expandtab            " 将制表符扩展为空格
 set tabstop=4            " 设置编辑时制表符占用空格数
 set shiftwidth=4         " 设置格式化时制表符占用空格数
 set softtabstop=4        " 设置4个空格为制表符
+set expandtab
 set smarttab             " 在行和段开始处使用制表符
 set nowrap               " 禁止折行
 set backspace=2          " 使用回车键正常处理indent,eol,start等
@@ -107,6 +108,8 @@ Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
 Plug 'chxuan/tagbar'
 Plug 'Valloric/YouCompleteMe'
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/supertab'
 Plug 'Yggdroot/LeaderF'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
@@ -153,8 +156,19 @@ Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'nightsense/cosmic_latte'
+Plug 'KKPMW/sacredforest-vim'
+Plug 'trevordmiller/nova-vim'
+Plug 'davidklsn/vim-sialoquent'
+" Plug 'skywind3000/quickmenu.vim'
 " Plug 'ludovicchabant/vim-gutentags'
-
+Plug 'nightsense/carbonized'
+Plug 'nightsense/cosmic_latte'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'lambdalisue/vim-gista'
+Plug 'lambdalisue/vim-gista-unite'
+Plug 'lambdalisue/vim-gista-ctrlp'
 call plug#end()            
 
 imap jk <esc> 
@@ -215,24 +229,35 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 主题
 set background=dark
-let g:onedark_termcolors=256
-colorscheme onedark
+" let g:gruvbox_termcolors=256
+" colorscheme gruvbox
+set termguicolors
+" set background=light
+colorscheme sialoquent
+" colorscheme carbonized-light
 
 " airline
 "ravenpower
 " hybridline
 " lucius
 " peaksea
-let g:airline_theme="onedark"
+" cosmic_latte_light
+let g:airline_theme="deus"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
      let g:airline_symbols = {}
 endif
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
+
+
 
 " cpp-mode
 nnoremap <leader>y :CopyCode<cr>
@@ -289,6 +314,9 @@ let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
 let g:ycm_python_binary_path = '/usr/bin/python'
 let g:ycm_server_python_interpreter = '/usr/bin/python'
+" let g:ycm_python_binary_path = '/home/solemnjoker/anaconda3/envs/gluon/bin/python'
+" let g:ycm_server_python_interpreter = '/home/solemnjoker/anaconda3/envs/gluon/bin/python'
+" let g:ycm_path_to_python_interpreter = '/home/solemnjoker/anaconda3/envs/gluon/bin/python'
 let g:ycm_min_num_identifier_candidate_chars=2
 let g:ycm_key_invoke_completion='<c=z>'
 " set completeopt=menu,menuonelet 
@@ -302,7 +330,7 @@ nnoremap <leader>Fi :YcmCompleter FixIt<cr>
 nnoremap <c-d> :YcmCompleter GetDoc<cr>
 nnoremap <leader><leader>d :only<cr>
 
-let g:ycm_python_interpreter_path = ''
+let g:ycm_python_interpreter_path = '/home/solemnjoker/anaconda3/envs/gluon/bin/python'
 let g:ycm_python_sys_path = []
 let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_interpreter_path',
@@ -312,12 +340,14 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone
 let g:ycm_add_preview_to_completeopt = 0
+
 let g:ycm_filetype_whitelist = { 
             \ "c":1,
             \ "cpp":1, 
+            \ "cu":1, 
+            \ "cxx":1, 
             \ "cmake":1,
             \ "objc":1,
-            \ "python":1,
             \ "go":1,
             \ "perl":1,
             \ "java":1,
@@ -325,6 +355,7 @@ let g:ycm_filetype_whitelist = {
             \ "sh":1,
             \ "zsh":1,
             \ "zimbu":1,
+            \ "markdown":1,
             \ }
 
 " nmap <F5> :YcmDiags<cr>
@@ -332,8 +363,8 @@ let g:ycm_filetype_whitelist = {
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -379,9 +410,14 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 " let g:ycm_semantic_triggers.cpp = ['->', '.', ' ', '(', '[', '&',']']
 let g:ycm_semantic_triggers =  {
         \   'cpp' : ['->', '.', '::','re!\w{2}'],
-        \   'c,python,java,go,erlang,perl': ['re!\w{2}'],
+        \   'c,cuda,java,go,erlang,perl,markdown': ['re!\w{2}'],
         \   'cs,lua,javascript': ['re!\w{2}'],
         \ }
+
+au BufNewFile,BufRead *.md set ft=markdown
+"cuda
+au BufNewFile,BufRead *.cu set ft=cpp
+au BufNewFile,BufRead *.cuh set ft=cuda
 
 " tagbar
 let g:tagbar_width = 30
@@ -545,6 +581,13 @@ func! SetPythonTitle()
     call append(line(".")+5, "\# Created Time: ".strftime("%Y-%m-%d",localtime()))    
 endfunc
 
+func! UseJediTab()
+    let g:ycm_auto_trigger = 0
+    let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+    let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+    let g:jedi#completions_command = "<Tab>"
+endfunc
+
 if has("autocmd")
   au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
   au InsertEnter,InsertChange *
@@ -558,3 +601,14 @@ endif
 
 "format json
 nnoremap <leader>j :%!python -m json.tool<CR>
+
+"quickmenu
+" choose a favorite key to show/hide quickmenu
+noremap <silent><F12> :call quickmenu#toggle(0)<cr>
+
+" enable cursorline (L) and cmdline help (H)
+let g:quickmenu_options = "HL"
+
+
+ let g:SuperTabDefaultCompletionType = "context"
+ " let g:jedi#popup_on_dot = 0
